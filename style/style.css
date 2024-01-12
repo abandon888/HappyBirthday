@@ -339,11 +339,13 @@ body {
 
 .startSign .button {
   padding: 1rem 1.6rem;
+  border: 1px solid #2ba245;
+  border-radius: 5px;
 }
 
 .startSign .button:hover {
-  border: 1px solid #2ba245;
-  border-radius: 5px;
+  background-color: #2ba245;
+  color: #fff;
   padding: 1rem 1.6rem;
   cursor: pointer;
 }
