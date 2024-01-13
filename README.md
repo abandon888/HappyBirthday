@@ -1,33 +1,26 @@
-## Happy Birthday!!!
+# 生日快乐
 
-### Wish someone special happy birthday in a special way.
+感谢原项目作者的开源，本项目基于原项目进行修改，原项目地址：<https://github.com/faahim/happy-birthday>
+改进点：
 
-#### [See it Live](https://faahim.github.io/happy-birthday/)
+1. 增加了音乐播放
+2. 部分中文化
+3. 优化了一些细节
 
-#### Update: Now you can customize all the texts without modifying the code!
+## 项目介绍
 
-On the birthday of a special friend, I felt like the generic happy birthday text just wasn't gonna cut it for me. So I put together this animated web page at the last minute to wish them Happy Birthday.
+用于祝福特别的人生日快乐，比如你很喜欢的漂亮姐姐，甚至还可以顺便表个白（慎 😇
 
-I decided to publish it so that you can use it to make the special people in your life feel a bit more of what they truly are: special.
-You can create your very own happy-birthday page in a few easy steps:
+## 使用方法
 
-* Fork the repository
-* Open `customize.json` and replace the content with your own
-* Turn on GitHub pages for your repository (Settings > Pages)
-* Share the URL you get at the above step with your friend
+fork 本项目，修改 customize.json 文件，将里面的内容替换为你自己的内容，然后在 github pages 或者其它一些托管网站上部署(如 netlify)即可。（再次感谢原作者）。
+可以修改文字，图片，背景音乐等，但有一些注意的地方：
 
-**You do not need to create Pull Request to this main repository to get it running.**
+1. 仅修改 customize.json 文件，不要修改其它文件，否则可能会导致页面无法正常显示。
+2. 音乐替换时注意重命名为相同名称的音乐文件，如我这里时`bgMusic.mp3`
+3. 图片替换时生日帽子可能会偏，建议修剪图片尺寸和原图片相同，以确保最佳观赏效果。
 
-I've created the JSON file (`customize.json`) for easy and quick customizability. It allows you the change all of the texts and the image used on the webpage without modifying the code. However, If you want to customize it further, leave the JSON fields empty and edit the HTML file directly. This is because the content in the JSON file overwrites the HTML.
+## 其它
 
-Please note that I've created this page in a hurry and it comes with no warranty.
-
-Feel free to [get in touch with me](mailto:afiur.fahim@gmail.com) if you need any help with it. You can [find me on Twitter](https://twitter.com/faahim01) as well. :)
-
-
-## Contributing
-
-I've used plain HTML, CSS and JavaScript with [GSAP](https://greensock.com/gsap) for animations.
-If you have any idea to improve it or make it more interesting, feel free to send a PR, or create an issue for a feature request.
-
-Happy wishing! 🎉
+整体使用的是纯 HTML、CSS 和 JavaScript，以及 GSAP 来制作动画。
+如果你喜欢这个项目，可以给个 star ⭐ 鼓励一下我，谢谢！
