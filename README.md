@@ -1,11 +1,14 @@
 # 生日快乐
 
-感谢原项目作者的开源，本项目基于原项目进行修改，原项目地址：<https://github.com/faahim/happy-birthday>
+本项目在原作者的基础上进行了一些改进。
+本项目预览页面：<https://friendly-paprenjak-ad64b7.netlify.app/>
+
 改进点：
 
-1. 增加了音乐播放
-2. 部分中文化
-3. 优化了一些细节
+1. 增加了音乐播放效果
+2. 添加引导页
+3. 中文化
+4. 优化了一些细节
 
 ## 项目介绍
 
@@ -23,4 +26,7 @@ fork 本项目，修改 customize.json 文件，将里面的内容替换为你�
 ## 其它
 
 整体使用的是纯 HTML、CSS 和 JavaScript，以及 GSAP 来制作动画。
+
+感谢原项目作者的开源，本项目基于原项目进行修改，原项目地址：<https://github.com/faahim/happy-birthday>
+
 如果你喜欢这个项目，可以给个 star ⭐ 鼓励一下我，谢谢！
