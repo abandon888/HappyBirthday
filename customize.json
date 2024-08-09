@@ -1,11 +1,11 @@
 {
   "greeting": "你好呀",
-  "name": "陈香",
-  "greetingText": "很庆幸能在十八岁遇见最潇洒的你",
-  "wishText": "朱颜长似，头上花枝，岁岁年年。愿君青丝不老，岁岁皆欢",
-  "imagePath": "img/香.png",
-  "text1": "六月十九是你的生日啊!!! :D",
-  "textInChatBox": "教资必过保持潇洒永远快乐健康不烦恼!",
+  "name": "小颖子",
+  "greetingText": "就像是我一直在说的感恩遇见(๑ت๑)",
+  "wishText": "吾心所向，唯卿尔来。自吾遇卿，情之所钟",
+  "imagePath": "img/颖.png",
+  "text1": "今天是七夕节哦小宝宝，小李子好期待的！:D",
+  "textInChatBox": "我要小颖子永远幸福！！",
   "sendButtonLabel": "发送",
   "text2": "我想给你一个礼物",
   "text3": "我认真地想了很久",
@@ -16,8 +16,8 @@
   "smiley": ":)",
   "bigTextPart1": "所",
   "bigTextPart2": "以",
-  "wishHeading": "生日快乐呀!",
-  "outroText": "如花似叶，岁岁年年，共占春风  岁岁春无事，相逢总玉颜",
+  "wishHeading": "小李子想要的不多",
+  "outroText": "但变得越来越思念你啊(◍•ᴗ•◍)惟愿君心似我心。我爱你小宝宝",
   "replayText": "如果你喜欢的话，可以再看一次呢……",
   "outroSmiley": ":)"
 }
