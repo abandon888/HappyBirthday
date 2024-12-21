@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<p id="text1"></p>
 
 <head>
   <meta charset="UTF-8">
@@ -29,7 +28,7 @@
       <p class="two" data-node-name="greetingText">I really like your name btw!</p>
     </div>
     <div class="three">
-      <p data-node-name="距离你的生日已经过去了${days}  :D">It's your birthday!!! :D</p>
+      <p data-node-name="距离你的生日已经过去了${diffDay}  :D">It's your birthday!!! :D</p>
     </div>
     <div class="four">
       <div class="text-box">
@@ -149,6 +148,6 @@
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
   
   // 替换占位符
-  document.getElementById('text1').innerText = `距离2024年12月13号已经过去了 ${diffDays} 天 :D`;
+  document.getElementById('text1').innerText = `距离你的生日已经过去了${diffDays} 天 :D`;
 </script>
 </html>
