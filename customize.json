@@ -4,7 +4,7 @@
   "greetingText": "不知说什么,但总想说什么",
   "wishText": "朱颜长似，头上花枝，岁岁年年。愿君青丝不老，岁岁皆欢。",
   "imagePath": "img/lydia2.png",
-  "text1": "距离你的生日已经过去了{days}  :D",
+  "text1": "距离你的生日已经过去了{diffDays}  :D",
   "textInChatBox": "非常非常非常诚挚的祝你生日快乐！！！很多很多的快乐……",
   "sendButtonLabel": "发送",
   "text2": "我想给你一个惊喜",
