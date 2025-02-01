@@ -1,3 +1,4 @@
+let audioUrl = ""
 // Import the data to customize and insert them into page
 const fetchData = () => {
   fetch("customize.json")
@@ -10,6 +11,15 @@ const fetchData = () => {
             document
               .querySelector(`[data-node-name*="${customData}"]`)
               .setAttribute("src", data[customData])
+          } else if (customData === "fonts") {
+            data[customData].forEach(font => {
+              const link = document.createElement('link')
+              link.rel = 'stylesheet'
+              link.href = font.path
+              document.head.appendChild(link)
+            })
+          } else if (customData === "music") {
+            audioUrl = data[customData]
           } else {
             document.querySelector(`[data-node-name*="${customData}"]`).innerText = data[customData]
           }
@@ -30,7 +40,7 @@ const fetchData = () => {
 }
 
 // 音乐播放
-const audio = new Audio("music/bgMusic.mp3")
+const audio = new Audio(audioUrl)
 audio.preload = "auto"
 
 const playPauseButton = document.getElementById('playPauseButton')
