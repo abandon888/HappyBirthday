@@ -26,17 +26,22 @@ fork 本项目，修改 customize.json 文件，将里面的内容替换为你�
 ## 本地开发/预览
 
 项目使用 npm 作为包管理器，请确保本地已经配置 node 环境，否则请自行安装，node 环境检验如下：
+
 ```
 $ node -v
 v22.2.1
 ```
+
 然后安装依赖：
+
 ```
-$ npm install
+npm install
 ```
+
 运行：
+
 ```
-$ npm run start
+npm run start
 ```
 
 ## 其它
@@ -46,3 +51,7 @@ $ npm run start
 感谢原项目作者的开源，本项目基于原项目进行修改，原项目地址：<https://github.com/faahim/happy-birthday>
 
 如果你喜欢这个项目，可以给个 star ⭐ 鼓励一下我，谢谢！
+
+# 2.1 更新
+
+1. 使用 rspack 构建项目
