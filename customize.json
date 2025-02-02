@@ -20,15 +20,11 @@
   "outroText": "我希望你喜欢这个小小的惊喜!",
   "replayText": "如果你喜欢的话，可以再看一次哦!或者……",
   "outroSmiley": ":)",
-  "music": "music/bgMusic.mp3",
+  "music": "./music/bgMusic.mp3",
   "fonts": [
     {
       "name": "Ma Shan Zheng",
       "path": "https://fonts.googleapis.com/css?family=Ma+Shan+Zheng&display=swap"
-    },
-    {
-      "name": "LXGW WenKai",
-      "path":"./fonts/LXGWWenKai-Regular.ttf"
     }
   ]
 }

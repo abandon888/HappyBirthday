@@ -1,4 +1,7 @@
 let audioUrl = ""
+let audio = null
+let isPlaying = false
+
 // Import the data to customize and insert them into page
 const fetchData = () => {
   fetch("customize.json")
@@ -17,9 +20,13 @@ const fetchData = () => {
               link.rel = 'stylesheet'
               link.href = font.path
               document.head.appendChild(link)
+              //设置body字体
+              document.body.style.fontFamily = font.name
             })
           } else if (customData === "music") {
             audioUrl = data[customData]
+            audio = new Audio(audioUrl)
+            audio.preload = "auto"
           } else {
             document.querySelector(`[data-node-name*="${customData}"]`).innerText = data[customData]
           }
@@ -38,31 +45,6 @@ const fetchData = () => {
       })
     })
 }
-
-// 音乐播放
-const audio = new Audio(audioUrl)
-audio.preload = "auto"
-
-const playPauseButton = document.getElementById('playPauseButton')
-let isPlaying = false
-
-document.getElementById('startButton').addEventListener('click', () => {
-  togglePlay(true)
-})
-
-playPauseButton.addEventListener('click', () => {
-  togglePlay(!isPlaying)
-})
-
-function togglePlay(play) {
-  isPlaying = play
-  play ? audio.play() : audio.pause()
-  playPauseButton.classList.toggle('playing', play)
-}
-
-
-
-
 
 // Animation Timeline
 const animationTimeline = () => {
@@ -345,3 +327,25 @@ const animationTimeline = () => {
 
 // Run fetch and animation in sequence
 fetchData()
+
+const playPauseButton = document.getElementById('playPauseButton')
+
+document.getElementById('startButton').addEventListener('click', () => {
+  if (audio) {
+    togglePlay(true)
+  }
+})
+
+playPauseButton.addEventListener('click', () => {
+  if (audio) {
+    togglePlay(!isPlaying)
+  }
+})
+
+function togglePlay(play) {
+  if (!audio) return
+  
+  isPlaying = play
+  play ? audio.play() : audio.pause()
+  playPauseButton.classList.toggle('playing', play)
+}

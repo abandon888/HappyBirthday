@@ -1,6 +1,6 @@
 {
   "name": "happy-birthday",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "An app that let's you say happy birthday to your friend in a nerdy way.",
   "scripts": {
     "dev": "rspack serve",

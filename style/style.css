@@ -4,7 +4,18 @@ html {
 
 body {
   margin: 0;
-  font-family: "LXGW WenKai", serif;
+  height: 100vh;
+  width: 100vw;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* 确保画布不拦截点击事件 */
+  z-index: -9999; /* 将画布置于顶层 */
 }
 
 .container {
@@ -18,7 +29,7 @@ body {
 }
 
 .container div.six {
-  top: 10vh;
+  top: 15vh;
   z-index: 1;
 }
 
@@ -78,11 +89,11 @@ body {
 .text-box .fake-btn {
   position: absolute;
   right: 5px;
-  bottom: 5px;
+  bottom: -5px;
   color: #fff;
-  background-color: #2ba245;
-  padding: 5px 8px;
-  border-radius: 3px;
+  background-color: #03C160;
+  padding: 8px 16px;
+  border-radius: 8px;
 }
 
 .five p {
@@ -269,7 +280,7 @@ body {
 
   .text-box .fake-btn {
     right: 5px;
-    bottom: -38px;
+    bottom: -48px;
   }
 
   .idea-5 span {
@@ -321,6 +332,7 @@ body {
   position: absolute;
   right: 5vw;
   top: 5vh;
+  transition: all 0.3s ease-in-out;
 }
 
 .play-pause.playing {
@@ -339,12 +351,12 @@ body {
 
 .startSign .button {
   padding: 1rem 1.6rem;
-  border: 1px solid #2ba245;
+  border: 1px solid #03C160;
   border-radius: 5px;
 }
 
 .startSign .button:hover {
-  background-color: #2ba245;
+  background-color: #03C160;
   color: #fff;
   padding: 1rem 1.6rem;
   cursor: pointer;

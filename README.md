@@ -55,3 +55,17 @@ npm run start
 # 2.1 更新
 
 1. 使用 rspack 构建项目
+2. font
+使用示例
+```json
+  "fonts": [
+    {
+      "name": "Ma Shan Zheng",
+      "path": "https://fonts.googleapis.com/css?family=Ma+Shan+Zheng&display=swap"
+    },
+    {
+      "name": "LXGW WenKai",
+      "path":"./fonts/LXGWWenKai-Regular.ttf"
+    }
+  ]
+```
