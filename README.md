@@ -3,6 +3,8 @@
 以特殊的方式祝某人生日快乐。
 本项目预览页面：<https://friendly-paprenjak-ad64b7.netlify.app/>
 
+[English Documentation](./README_EN.md)
+
 项目亮点：
 
 1. 精心设计的文字动效与浪漫飘逸的气球动画
@@ -27,6 +29,7 @@ fork 本项目，修改 customize.json 文件，将里面的内容替换为你�
 3. 图片替换时生日帽子可能会偏，建议修剪图片尺寸和原图片相同，以确保最佳观赏效果。
 4. 字体替换时修改 json 中 font 配置即可，可采用本地字体或在线字体（如 Google Fonts），项目中已内置`LXGW WenKai`字体文件，可直接使用。同时 font 仅支持一种字体配置。
   使用示例
+
   ```json
     "fonts": [
       {
