@@ -1,5 +1,15 @@
 # Happy Birthday
 
+<p>
+<img src="https://img.shields.io/github/release/abandon888/HappyBirthday" alt="release" />
+<img src="https://img.shields.io/github/stars/abandon888/HappyBirthday" alt="stars" />
+<img src="https://img.shields.io/github/issues/abandon888/HappyBirthday" alt="issues" />
+<img src="https://img.shields.io/github/forks/abandon888/HappyBirthday" alt="forks" />
+<img src="https://img.shields.io/github/license/abandon888/HappyBirthday" alt="license" />
+<a href="https://app.netlify.com/sites/friendly-paprenjak-ad64b7/deploys"><img src="https://api.netlify.com/api/v1/badges/39d29171-f3b1-4172-932e-1f657058303a/deploy-status" alt="Netlify Status" /></a>
+</p>
+
+[中文](./README.md) | English
 A special way to wish someone happy birthday.
 Preview: <https://friendly-paprenjak-ad64b7.netlify.app/>
 
@@ -27,6 +37,7 @@ You can modify text, images, background music, fonts, etc., but there are some t
 3. When replacing images, the birthday hat might be offset. It's recommended to crop images to the same size as the original for best viewing effect.
 4. For font replacement, just modify the font configuration in json. You can use local fonts or online fonts (like Google Fonts). The project has built-in `LXGW WenKai` font file ready to use. Note that font only supports one font configuration.
   Usage example:
+
   ```json
     "fonts": [
       {
@@ -85,4 +96,4 @@ If you like this project, you can give it a star ⭐ to encourage me, thank you!
 1. Added music playback effect
 2. Added guide page
 3. Chinese localization
-4. Optimized some details 
+4. Optimized some details
