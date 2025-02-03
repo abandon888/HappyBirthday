@@ -89,7 +89,7 @@ canvas {
 .text-box .fake-btn {
   position: absolute;
   right: 5px;
-  bottom: -5px;
+  bottom: 2px;
   color: #fff;
   background-color: #03C160;
   padding: 8px 16px;

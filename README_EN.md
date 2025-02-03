@@ -1,7 +1,6 @@
 # Happy Birthday
 
 <p>
-<img src="https://img.shields.io/github/release/abandon888/HappyBirthday" alt="release" />
 <img src="https://img.shields.io/github/stars/abandon888/HappyBirthday" alt="stars" />
 <img src="https://img.shields.io/github/issues/abandon888/HappyBirthday" alt="issues" />
 <img src="https://img.shields.io/github/forks/abandon888/HappyBirthday" alt="forks" />
