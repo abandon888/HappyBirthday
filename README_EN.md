@@ -9,7 +9,9 @@
 </p>
 
 [中文](./README.md) | English
+
 A special way to wish someone happy birthday.
+
 Preview: <https://friendly-paprenjak-ad64b7.netlify.app/>
 
 ## Project Highlights

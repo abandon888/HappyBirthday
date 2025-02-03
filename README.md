@@ -9,7 +9,9 @@
 </p>
 
 中文｜[English](./README_EN.md)
+
 以特殊的方式祝某人生日快乐。
+
 本项目预览页面：<https://friendly-paprenjak-ad64b7.netlify.app/>
 
 **项目亮点：**
