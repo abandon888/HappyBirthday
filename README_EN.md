@@ -29,6 +29,13 @@ Used to wish happy birthday to someone special or your lover, creating a romanti
 ## Usage
 
 Fork this project, modify the customize.json file by replacing its contents with your own, then deploy it on github pages or other hosting sites (like netlify).
+- Vercel deploy
+
+   [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fabandon888%2FHappyBirthday&project-name=happy-birthday)
+
+- Netlify deploy
+
+   [![Deploy with NEtlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/abandon888/HappyBirthday)
 > You don't need to create PR to this repository
 
 You can modify text, images, background music, fonts, etc., but there are some things to note:
