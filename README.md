@@ -29,6 +29,14 @@
 ## 使用方法
 
 fork 本项目，修改 customize.json 文件，将里面的内容替换为你自己的内容，然后在 github pages 或者其它一些托管网站上部署(如 netlify)即可。
+- Vercel 部署
+
+   [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fabandon888%2FHappyBirthday&project-name=happy-birthday)
+
+- Netlify 部署（国内用户推荐，不被墙）
+
+   [![Deploy with NEtlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/abandon888/HappyBirthday)
+
 > 你不需要向本仓库发起 PR
 
 可以修改文字，图片，背景音乐,字体等，但有一些注意的地方：
