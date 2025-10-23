@@ -3,10 +3,10 @@
   "name": "嬿羽同學",
   "greetingText": "很慶幸在這個年華遇見最美麗的妳",
   "wishText": "福如東海、壽比南山，鶴壽延年、松柏長青。青春永駐、笑口常開，心想事成、萬事如意。",
-  "imagePath": "img/lydia2.png",
+  "imagePath": "https://www.iloveimg.com/zh-tw/download/0hn7Ah3bbyppf91mAbvmy19kyhvky6s9vy0mrwykmygyfcwm7pwlzlywr6t28l1v6sxtz7rtbrctk4wysmnl4y47nnnd33nsysdyzxf3r20w7n5zlA87qyk2jn1jyhs2f7lywvl6q14psj93ryqdxlx176ykpjjtr6nrsx1h9hls98y0zA5q/8",
   "text1": "今天是妳的生日啊!!! :D",
   "textInChatBox": "非常誠摯ㄉ祝你生日快樂！！",
-  "sendButtonLabel": "发送",
+  "sendButtonLabel": "生日快樂",
   "text2": "我想给你一个驚喜",
   "text3": "以至於剛剛都沒在上課",
   "text4": "但老師會原諒我的",
@@ -21,7 +21,7 @@
   "replayText": "如果你喜欢的话，可以多看幾次ㄛ！",
   "outroSmiley": ":)",
   "music": "./music/bgMusic.mp3",
-  "fonts": [
+  "fonts": [生日大快樂
     {
       "name": "你的同學蔡雲山",
       "path": "https://fonts.googleapis.com/css?family=Ma+Shan+Zheng&display=swap"
