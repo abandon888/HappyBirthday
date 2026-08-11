@@ -1,4 +1,4 @@
-import { stat, readFile } from 'node:fs/promises'
+import { realpath, stat, readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import Ajv from 'ajv/dist/2020.js'
@@ -41,18 +41,31 @@ function hasProtocol(value) {
   return /^[a-zA-Z][a-zA-Z\d+.-]*:/.test(value)
 }
 
-function isInside(candidate, parent) {
+export function isWithin(candidate, parent) {
   const relative = path.relative(parent, candidate)
   return relative === '' || (!relative.startsWith(`..${path.sep}`) && relative !== '..' && !path.isAbsolute(relative))
 }
 
-export function resolveLocalResource(value, configDirectory) {
+export async function resolveLocalResource(value, configDirectory) {
   if (typeof value !== 'string' || value.trim() === '' || isHttpsUrl(value)) return null
   if (hasProtocol(value)) return null
+  if (path.isAbsolute(value)) return null
 
   const resolved = path.resolve(configDirectory, value)
-  if (!path.isAbsolute(value) && !isInside(resolved, configDirectory)) return null
-  return resolved
+  if (!isWithin(resolved, configDirectory)) return null
+
+  // `stat` and `copyFile` follow symlinks. Resolve both sides before returning a
+  // usable resource path so a config-local symlink cannot read outside its folder.
+  try {
+    const [realConfigDirectory, realResourcePath] = await Promise.all([
+      realpath(configDirectory),
+      realpath(resolved)
+    ])
+    return isWithin(realResourcePath, realConfigDirectory) ? realResourcePath : null
+  } catch {
+    // Keep a missing path intact so validation can report that it does not exist.
+    return resolved
+  }
 }
 
 async function validateResource(value, rule, configDirectory, fieldName) {
@@ -64,7 +77,7 @@ async function validateResource(value, rule, configDirectory, fieldName) {
     return errors
   }
 
-  const resourcePath = resolveLocalResource(value, configDirectory)
+  const resourcePath = await resolveLocalResource(value, configDirectory)
   if (!resourcePath) {
     errors.push(`${fieldName} must not escape the configuration directory`)
     return errors

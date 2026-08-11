@@ -64,21 +64,42 @@ function setImage(value) {
   image.setAttribute('src', value)
 }
 
-function setFonts(fonts) {
+function isBinaryFont(value) {
+  try {
+    const pathname = new URL(value, window.location.href).pathname.toLowerCase()
+    return ['.ttf', '.otf', '.woff', '.woff2'].some((extension) => pathname.endsWith(extension))
+  } catch {
+    return false
+  }
+}
+
+async function setFonts(fonts) {
   if (!Array.isArray(fonts)) return
 
-  fonts.forEach((font) => {
+  for (const font of fonts) {
     if (!font || typeof font.name !== 'string' || !isSafeResourceUrl(font.path)) {
       console.warn('HappyBirthday: ignored unsafe font configuration')
-      return
+      continue
     }
 
-    const link = document.createElement('link')
-    link.rel = 'stylesheet'
-    link.href = font.path
-    document.head.appendChild(link)
+    if (isBinaryFont(font.path)) {
+      try {
+        const face = new FontFace(font.name, `url(${JSON.stringify(font.path)})`)
+        await face.load()
+        document.fonts.add(face)
+      } catch (error) {
+        console.warn(`HappyBirthday: could not load font ${font.name}`, error)
+        continue
+      }
+    } else {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = font.path
+      document.head.appendChild(link)
+    }
+
     document.body.style.fontFamily = font.name
-  })
+  }
 }
 
 function setAudio(value) {
@@ -96,7 +117,7 @@ function setAudio(value) {
   })
 }
 
-function applyConfiguration(config) {
+async function applyConfiguration(config) {
   const theme = SAFE_THEME_NAMES.has(config.theme) ? config.theme : 'classic'
   document.documentElement.dataset.theme = theme
   document.body.dataset.theme = theme
@@ -107,7 +128,7 @@ function applyConfiguration(config) {
 
   if (config.imagePath) setImage(config.imagePath)
   if (config.music) setAudio(config.music)
-  setFonts(config.fonts)
+  await setFonts(config.fonts)
 }
 
 function splitIntoSpans(element) {
@@ -223,7 +244,7 @@ async function initialize() {
       throw new Error('customize.json must contain an object')
     }
 
-    applyConfiguration(config)
+    await applyConfiguration(config)
     bindControls()
     startFireworks()
   } catch (error) {

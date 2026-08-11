@@ -1,12 +1,13 @@
-import { cp, copyFile, mkdir, readFile, rm, writeFile } from 'node:fs/promises'
+import { cp, copyFile, mkdir, rm, writeFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
 import { spawn } from 'node:child_process'
-import { fileURLToPath, pathToFileURL } from 'node:url'
+import { pathToFileURL } from 'node:url'
 import {
   PROJECT_ROOT,
   formatErrors,
   isHttpsUrl,
+  isWithin,
   resolveLocalResource,
   validateConfigFile
 } from './lib/config.mjs'
@@ -70,11 +71,6 @@ function sanitizedFilename(source, usedNames) {
   return candidate
 }
 
-function isWithin(child, parent) {
-  const relative = path.relative(parent, child)
-  return relative === '' || (!relative.startsWith(`..${path.sep}`) && relative !== '..' && !path.isAbsolute(relative))
-}
-
 async function copySource(outputDirectory) {
   for (const entry of sourceEntries) {
     const source = path.join(PROJECT_ROOT, entry)
@@ -84,7 +80,7 @@ async function copySource(outputDirectory) {
 
 async function copyResource(value, configDirectory, outputDirectory, usedNames) {
   if (!value || isHttpsUrl(value)) return value
-  const source = resolveLocalResource(value, configDirectory)
+  const source = await resolveLocalResource(value, configDirectory)
   if (!source) return value
 
   if (isWithin(source, PROJECT_ROOT)) {
