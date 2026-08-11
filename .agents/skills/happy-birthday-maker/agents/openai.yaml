@@ -1,0 +1,6 @@
+interface:
+  display_name: "HappyBirthday Maker"
+  short_description: "Create a safe, editable birthday microsite from a request and local assets."
+  default_prompt: "Create a personalized birthday page in a new local directory."
+policy:
+  allow_implicit_invocation: true

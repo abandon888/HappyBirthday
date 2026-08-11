@@ -8,6 +8,8 @@
 
 # production
 /build
+/dist
+/generated
 
 # chrome package private key
 /package/*.pem

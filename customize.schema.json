@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/abandon888/HappyBirthday/customize.schema.json",
+  "title": "HappyBirthday customization",
+  "type": "object",
+  "properties": {
+    "theme": {
+      "type": "string",
+      "enum": ["classic", "warm", "minimal"],
+      "default": "classic"
+    },
+    "greeting": { "type": "string" },
+    "name": { "type": "string" },
+    "greetingText": { "type": "string" },
+    "wishText": { "type": "string" },
+    "imagePath": { "type": "string" },
+    "text1": { "type": "string" },
+    "textInChatBox": { "type": "string" },
+    "sendButtonLabel": { "type": "string" },
+    "text2": { "type": "string" },
+    "text3": { "type": "string" },
+    "text4": { "type": "string" },
+    "text4Adjective": { "type": "string" },
+    "text5Entry": { "type": "string" },
+    "text5Content": { "type": "string" },
+    "smiley": { "type": "string" },
+    "bigTextPart1": { "type": "string" },
+    "bigTextPart2": { "type": "string" },
+    "wishHeading": { "type": "string" },
+    "outroText": { "type": "string" },
+    "replayText": { "type": "string" },
+    "outroSmiley": { "type": "string" },
+    "music": { "type": "string" },
+    "fonts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "path"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "path": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": true
+}

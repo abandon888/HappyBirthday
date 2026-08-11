@@ -2,10 +2,37 @@ html {
   box-sizing: border-box;
 }
 
+:root {
+  --page-background: #fff;
+  --text-color: #202020;
+  --accent-color: #03c160;
+  --accent-contrast: #fff;
+  --idea-highlight: rgb(21, 161, 237);
+  --wish-color: #ff69b4;
+}
+
+html[data-theme='warm'] {
+  --page-background: #fff8f1;
+  --text-color: #4d2c2c;
+  --accent-color: #d85d73;
+  --idea-highlight: #c06c84;
+  --wish-color: #d15a7c;
+}
+
+html[data-theme='minimal'] {
+  --page-background: #f8fafc;
+  --text-color: #1f2937;
+  --accent-color: #334155;
+  --idea-highlight: #475569;
+  --wish-color: #475569;
+}
+
 body {
   margin: 0;
   height: 100vh;
   width: 100vw;
+  color: var(--text-color);
+  background: var(--page-background);
 }
 
 canvas {
@@ -20,7 +47,7 @@ canvas {
 
 .container {
   height: 100vh;
-  width: 100vh;
+  width: 100vw;
   margin: 0 auto;
   text-align: center;
   visibility: hidden;
@@ -90,8 +117,8 @@ canvas {
   position: absolute;
   right: 5px;
   bottom: 2px;
-  color: #fff;
-  background-color: #03C160;
+  color: var(--accent-contrast);
+  background-color: var(--accent-color);
   padding: 8px 16px;
   border-radius: 8px;
 }
@@ -351,13 +378,18 @@ canvas {
 
 .startSign .button {
   padding: 1rem 1.6rem;
-  border: 1px solid #03C160;
+  border: 1px solid var(--accent-color);
   border-radius: 5px;
 }
 
 .startSign .button:hover {
-  background-color: #03C160;
+  background-color: var(--accent-color);
   color: #fff;
   padding: 1rem 1.6rem;
   cursor: pointer;
+}
+
+html[data-theme='minimal'] .baloons,
+html[data-theme='minimal'] .eight {
+  display: none;
 }

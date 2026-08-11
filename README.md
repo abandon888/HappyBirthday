@@ -1,108 +1,79 @@
-# 生日快乐
+# HappyBirthday
 
-<p>
-<img src="https://img.shields.io/github/stars/abandon888/HappyBirthday" alt="stars" />
-<img src="https://img.shields.io/github/issues/abandon888/HappyBirthday" alt="issues" />
-<img src="https://img.shields.io/github/forks/abandon888/HappyBirthday" alt="forks" />
-<img src="https://img.shields.io/github/license/abandon888/HappyBirthday" alt="license" />
-<a href="https://app.netlify.com/sites/friendly-paprenjak-ad64b7/deploys"><img src="https://api.netlify.com/api/v1/badges/39d29171-f3b1-4172-932e-1f657058303a/deploy-status" alt="Netlify Status" /></a>
-</p>
+中文 | [English](./README_EN.md)
 
-中文｜[English](./README_EN.md)
+HappyBirthday 是一个可配置的 HTML、CSS、JavaScript 生日祝福微型网站。你可以 Fork 后手工定制，也可以使用仓库内置的 Codex Skill，通过一句描述和可选本地素材创建新的、可继续编辑的网站。
 
-以特殊的方式祝某人生日快乐。
+## v2.1 新增能力
 
-本项目预览页面：<https://friendly-paprenjak-ad64b7.netlify.app/>
+- 完整静态构建与本地打包的 GSAP，不再依赖第三方动画 CDN。
+- `classic`、`warm`、`minimal` 三个主题。
+- 基于 Schema 的配置校验和本地素材安全检查。
+- 生成独立源码项目和可直接部署的 `dist/` 目录。
+- 仓库级 Codex Skill：`happy-birthday-maker`。
 
-**项目亮点：**
+## 本地开发
 
-1. 精心设计的文字动效与浪漫飘逸的气球动画
-2. 通过简单修改`customize.json`文件即可自定义所有文字内容、图片素材、背景音乐及字体样式
-3. 点击页面任意位置都会绽放绚丽的烟花特效
-4. 自动播放优美的背景音乐,营造温馨浪漫的氛围
-5. 使用现代化的 rspack 构建项目，性能更优
+需要 Node.js 20 或更高版本。
 
-## 一些你或许想了解的项目背景
-
-用于祝福特别的人或者恋人生日快乐，烘托浪漫气氛,关于项目背后的故事，可以看看我的知乎博客文章：[由庆祝生日所想到的——网站背景音乐播放](https://zhuanlan.zhihu.com/p/677636150)
-
-## 使用方法
-
-fork 本项目，修改 customize.json 文件，将里面的内容替换为你自己的内容，然后在 github pages 或者其它一些托管网站上部署(如 netlify)即可。
-- Vercel 部署
-
-   [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fabandon888%2FHappyBirthday&project-name=happy-birthday)
-
-- Netlify 部署（国内用户推荐，不被墙）
-
-   [![Deploy with NEtlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/abandon888/HappyBirthday)
-
-> 你不需要向本仓库发起 PR
-
-可以修改文字，图片，背景音乐,字体等，但有一些注意的地方：
-
-1. 仅修改 customize.json 文件，不要修改其它文件，否则可能会导致页面无法正常显示。
-2. 音乐替换时注意重命名为相同名称的音乐文件或注意修改 json 文件中路径，如我这里是`bgMusic.mp3`
-3. 图片替换时生日帽子可能会偏，建议修剪图片尺寸和原图片相同，以确保最佳观赏效果。
-4. 字体替换时修改 json 中 font 配置即可，可采用本地字体或在线字体（如 Google Fonts），项目中已内置`LXGW WenKai`字体文件，可直接使用。同时 font 仅支持一种字体配置。
-  使用示例
-
-  ```json
-    "fonts": [
-      {
-        "name": "Ma Shan Zheng",
-        "path": "https://fonts.googleapis.com/css?family=Ma+Shan+Zheng&display=swap"
-      },
-    //或者使用本地字体，但仅能同时使用一种字体
-    // {
-    //     "name": "LXGW WenKai",
-    //     "path":"./fonts/LXGWWenKai-Regular.ttf"
-    //   } 
-    ]
-  ```
-
-## 本地开发/预览
-
-项目使用 npm 作为包管理器，请确保本地已经配置 node 环境，否则请自行安装，node 环境检验如下：
-
-```
-$ node -v
-v22.2.1
+```bash
+npm ci
+npm run dev
 ```
 
-然后安装依赖：
+构建并检查部署产物：
 
-```
-npm install
-```
-
-运行：
-
-```
-npm run start
+```bash
+npm run build
+npm run check-dist
 ```
 
-## 其它
+## 手工配置
 
-整体使用的是纯 HTML、CSS 和 JavaScript，以及 GSAP 来制作动画。
+编辑 `customize.json` 后执行：
 
-感谢原项目作者的开源，本项目基于[happy-birthday](https://github.com/faahim/happy-birthday) 进行修改。
+```bash
+npm run validate -- --config customize.json
+```
 
-如果你喜欢这个项目，可以给个 star ⭐ 鼓励一下我，谢谢！
+原有的文案字段、`imagePath`、`music`、`fonts` 字段都继续支持。`theme` 为可选字段，未填写时使用 `classic`。
 
-## 更新日志
+```json
+{
+  "theme": "warm",
+  "name": "小雨",
+  "imagePath": "./img/lydia2.png",
+  "music": "./music/bgMusic.mp3"
+}
+```
 
-### v2.0（2025-02-03）
+自定义本地图片支持 PNG/JPEG/WebP/GIF，最大 10 MiB；音频支持 MP3/OGG/WAV/M4A，最大 25 MiB；字体支持 TTF/OTF/WOFF/WOFF2，最大 10 MiB。远程资源必须使用 HTTPS。校验器会拒绝危险协议和越出配置目录的相对路径。
 
-1. 使用 rspack 构建项目
-2. 添加 font 配置支持
-3. 添加烟花特效
-4. 优化音乐播放交互
-5. 更多的可配置项
+## 快速创建独立网站
 
-### v1.0
+将配置文件和可选本地素材放在同一目录，然后执行：
 
-1. 增加了音乐播放效果
-2. 添加引导页
-3. 中文化
-4. 优化了一些细节
+```bash
+npm run create -- --config ./my-birthday/customize.json --output ./generated/xiaoyu-birthday
+npm run preview -- --site ./generated/xiaoyu-birthday
+```
+
+生成器不会覆盖已存在目录，会复制本地素材、创建可编辑源码并构建 `dist/`。它不会部署、读取凭证或上传素材。请将 `generated/xiaoyu-birthday/dist/` 手动部署到 GitHub Pages、Netlify、Vercel 或其他静态托管服务。
+
+## 使用 Codex Skill
+
+在本仓库内运行 Codex 后，可直接调用：
+
+```text
+$happy-birthday-maker 为小雨制作一个温暖的中文生日页面，使用 ./photo.png 和 ./song.mp3。
+```
+
+Skill 位于 `.agents/skills/happy-birthday-maker/`，Codex 会在仓库内自动发现。它将用户文案和本地素材视为数据，只写入新目录；若要保留外部 HTTPS 资源，会先说明域名和网络请求。它不自动部署、不上传素材、不读取密钥，也不直接调用 OpenAI API。
+
+如果要在仓库外复用，可通过 Codex Skill installer 从本公开 GitHub 仓库安装。Plugin 打包会在获得更多真实反馈后再进行。
+
+## 贡献与安全
+
+提交通用改进前请阅读 [CONTRIBUTING.md](./CONTRIBUTING.md)。姓名、照片、私密文案、音乐和部署设置请保留在自己的 Fork 中。安全报告和信任边界请见 [SECURITY.md](./SECURITY.md)。
+
+本项目基于 [faahim/happy-birthday](https://github.com/faahim/happy-birthday) 修改，并保留其 MIT 许可证和署名。

@@ -1,107 +1,79 @@
-# Happy Birthday
-
-<p>
-<img src="https://img.shields.io/github/stars/abandon888/HappyBirthday" alt="stars" />
-<img src="https://img.shields.io/github/issues/abandon888/HappyBirthday" alt="issues" />
-<img src="https://img.shields.io/github/forks/abandon888/HappyBirthday" alt="forks" />
-<img src="https://img.shields.io/github/license/abandon888/HappyBirthday" alt="license" />
-<a href="https://app.netlify.com/sites/friendly-paprenjak-ad64b7/deploys"><img src="https://api.netlify.com/api/v1/badges/39d29171-f3b1-4172-932e-1f657058303a/deploy-status" alt="Netlify Status" /></a>
-</p>
+# HappyBirthday
 
 [中文](./README.md) | English
 
-A special way to wish someone happy birthday.
+HappyBirthday is a configurable HTML, CSS, and JavaScript birthday microsite. Fork it for a personal page, or use the included Codex Skill to create a new editable site from a short description and optional local assets.
 
-Preview: <https://friendly-paprenjak-ad64b7.netlify.app/>
+## What v2.1 adds
 
-## Project Highlights
+- Complete static builds with bundled GSAP; no third-party animation CDN.
+- `classic`, `warm`, and `minimal` themes.
+- Schema-backed configuration validation and safe local asset checks.
+- A generator that creates a separate editable project plus deployable `dist/` output.
+- A repository-scoped `happy-birthday-maker` Skill for Codex.
 
-1. Carefully designed text animations and romantic floating balloon animations
-2. Customize all text content, images, background music and font styles by simply modifying the `customize.json` file
-3. Click anywhere on the page to display gorgeous firework effects
-4. Auto-play beautiful background music to create a warm and romantic atmosphere
-5. Built with modern rspack for better performance
+## Local development
 
-## Project Background
+Requires Node.js 20 or later.
 
-Used to wish happy birthday to someone special or your lover, creating a romantic atmosphere. For the story behind the project, you can read my Zhihu blog post: [Thoughts on Website Background Music from Birthday Celebrations](https://zhuanlan.zhihu.com/p/677636150)
-
-## Usage
-
-Fork this project, modify the customize.json file by replacing its contents with your own, then deploy it on github pages or other hosting sites (like netlify).
-- Vercel deploy
-
-   [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fabandon888%2FHappyBirthday&project-name=happy-birthday)
-
-- Netlify deploy
-
-   [![Deploy with NEtlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/abandon888/HappyBirthday)
-> You don't need to create PR to this repository
-
-You can modify text, images, background music, fonts, etc., but there are some things to note:
-
-1. Only modify the customize.json file, do not modify other files, otherwise the page may not display properly.
-2. When replacing music, make sure to rename to the same music filename or modify the path in the json file, like `bgMusic.mp3` here
-3. When replacing images, the birthday hat might be offset. It's recommended to crop images to the same size as the original for best viewing effect.
-4. For font replacement, just modify the font configuration in json. You can use local fonts or online fonts (like Google Fonts). The project has built-in `LXGW WenKai` font file ready to use. Note that font only supports one font configuration.
-  Usage example:
-
-  ```json
-    "fonts": [
-      {
-        "name": "Ma Shan Zheng",
-        "path": "https://fonts.googleapis.com/css?family=Ma+Shan+Zheng&display=swap"
-      },
-    //or use local font, but can only use one font at a time
-    // {
-    //     "name": "LXGW WenKai",
-    //     "path":"./fonts/LXGWWenKai-Regular.ttf"
-    //   } 
-    ]
-  ```
-
-## Local Development/Preview
-
-The project uses npm as package manager. Make sure you have node environment configured locally, otherwise please install it yourself. Verify node environment as follows:
-
-```
-$ node -v
-v22.2.1
+```bash
+npm ci
+npm run dev
 ```
 
-Then install dependencies:
+Build and verify the deployable site:
 
-```
-npm install
-```
-
-Run:
-
-```
-npm run start
+```bash
+npm run build
+npm run check-dist
 ```
 
-## Others
+## Customize directly
 
-The overall implementation uses pure HTML, CSS and JavaScript, along with GSAP for animations.
+Edit `customize.json`, then validate it:
 
-Thanks to the original project author for open sourcing. This project is modified based on [happy-birthday](https://github.com/faahim/happy-birthday).
+```bash
+npm run validate -- --config customize.json
+```
 
-If you like this project, you can give it a star ⭐ to encourage me, thank you!
+All existing text, `imagePath`, `music`, and `fonts` fields remain supported. `theme` is optional and defaults to `classic`.
 
-## Changelog
+```json
+{
+  "theme": "warm",
+  "name": "Avery",
+  "imagePath": "./img/lydia2.png",
+  "music": "./music/bgMusic.mp3"
+}
+```
 
-### v2.0 (2025-02-03)
+For local user assets, use PNG/JPEG/WebP/GIF images up to 10 MiB, MP3/OGG/WAV/M4A audio up to 25 MiB, and TTF/OTF/WOFF/WOFF2 fonts up to 10 MiB. Remote resources must use HTTPS. The validator rejects dangerous protocols and paths that escape the configuration directory.
 
-1. Use rspack to build project
-2. Add font configuration support
-3. Add firework effects
-4. Optimize music playback interaction
-5. More configurable options
+## Create a separate personalized site
 
-### v1.0
+Put your configuration and optional local assets in one directory, then run:
 
-1. Added music playback effect
-2. Added guide page
-3. Chinese localization
-4. Optimized some details
+```bash
+npm run create -- --config ./my-birthday/customize.json --output ./generated/avery-birthday
+npm run preview -- --site ./generated/avery-birthday
+```
+
+The generator never overwrites an existing directory. It copies local assets into the generated project, builds `dist/`, and does not deploy or read credentials. Deploy `generated/avery-birthday/dist/` manually to GitHub Pages, Netlify, Vercel, or another static host.
+
+## Use the Codex Skill
+
+When running Codex from this repository, invoke:
+
+```text
+$happy-birthday-maker Create a warm Chinese birthday page for Avery using ./photo.png and ./song.mp3.
+```
+
+The Skill is stored in `.agents/skills/happy-birthday-maker/`, so Codex discovers it inside the repository. It treats local assets and user text as data, writes only to a new directory, and asks before retaining an external HTTPS resource. It does not deploy, upload assets, read secrets, or call the OpenAI API.
+
+For reusable installation outside this repository, install the Skill from this public GitHub repository with your Codex Skill installer. Plugin packaging is intentionally deferred until the workflow has more public feedback.
+
+## Contributing and security
+
+Read [CONTRIBUTING.md](./CONTRIBUTING.md) before sending a reusable upstream change. Keep personal content in your own fork. See [SECURITY.md](./SECURITY.md) for reporting and trust-boundary guidance.
+
+This project is derived from [faahim/happy-birthday](https://github.com/faahim/happy-birthday) and preserves its MIT license and attribution.

@@ -1,4 +1,5 @@
 {
+  "theme": "classic",
   "greeting": "你好啊",
   "name": "XX",
   "greetingText": "很庆幸能在最美丽的年华遇见最美丽的你",
@@ -28,4 +29,3 @@
     }
   ]
 }
-

@@ -1,351 +1,235 @@
-let audioUrl = ""
+import { gsap } from 'gsap'
+import { startFireworks } from './firework.js'
+
+const SAFE_THEME_NAMES = new Set(['classic', 'warm', 'minimal'])
+const textFields = new Set([
+  'greeting',
+  'name',
+  'greetingText',
+  'wishText',
+  'text1',
+  'textInChatBox',
+  'sendButtonLabel',
+  'text2',
+  'text3',
+  'text4',
+  'text4Adjective',
+  'text5Entry',
+  'text5Content',
+  'smiley',
+  'bigTextPart1',
+  'bigTextPart2',
+  'wishHeading',
+  'outroText',
+  'replayText',
+  'outroSmiley'
+])
+
 let audio = null
 let isPlaying = false
+let animation = null
+let charactersPrepared = false
 
-// Import the data to customize and insert them into page
-const fetchData = () => {
-  fetch("customize.json")
-    .then(data => data.json())
-    .then(data => {
-      dataArr = Object.keys(data)
-      dataArr.map(customData => {
-        if (data[customData] !== "") {
-          if (customData === "imagePath") {
-            document
-              .querySelector(`[data-node-name*="${customData}"]`)
-              .setAttribute("src", data[customData])
-          } else if (customData === "fonts") {
-            data[customData].forEach(font => {
-              const link = document.createElement('link')
-              link.rel = 'stylesheet'
-              link.href = font.path
-              document.head.appendChild(link)
-              //设置body字体
-              document.body.style.fontFamily = font.name
-            })
-          } else if (customData === "music") {
-            audioUrl = data[customData]
-            audio = new Audio(audioUrl)
-            audio.preload = "auto"
-          } else {
-            document.querySelector(`[data-node-name*="${customData}"]`).innerText = data[customData]
-          }
-        }
+function isSafeResourceUrl(value) {
+  if (typeof value !== 'string' || value.trim() === '') return false
 
-        // Check if the iteration is over
-        // Run amimation if so
-        if (dataArr.length === dataArr.indexOf(customData) + 1) {
-          document.querySelector("#startButton").addEventListener("click", () => {
-            document.querySelector(".startSign").style.display = "none"
-            animationTimeline()
-          }
-          )
-          // animationTimeline()
-        }
-      })
-    })
+  try {
+    const parsed = new URL(value, window.location.href)
+    return parsed.protocol === 'https:' || parsed.origin === window.location.origin
+  } catch {
+    return false
+  }
 }
 
-// Animation Timeline
-const animationTimeline = () => {
-  // Spit chars that needs to be animated individually
-  const textBoxChars = document.getElementsByClassName("hbd-chatbox")[0]
-  const hbd = document.getElementsByClassName("wish-hbd")[0]
+function setStatus(message) {
+  const status = document.querySelector('[data-status]')
+  if (status) status.textContent = message
+}
 
-  textBoxChars.innerHTML = `<span>${textBoxChars.innerHTML
-    .split("")
-    .join("</span><span>")}</span`
-
-  hbd.innerHTML = `<span>${hbd.innerHTML
-    .split("")
-    .join("</span><span>")}</span`
-
-  const ideaTextTrans = {
-    opacity: 0,
-    y: -20,
-    rotationX: 5,
-    skewX: "15deg"
+function setText(nodeName, value) {
+  const node = document.querySelector(`[data-node-name="${nodeName}"]`)
+  if (!node) {
+    console.warn(`HappyBirthday: missing node for ${nodeName}`)
+    return
   }
+  node.textContent = String(value)
+}
 
-  const ideaTextTransLeave = {
-    opacity: 0,
-    y: 20,
-    rotationY: 5,
-    skewX: "-15deg"
+function setImage(value) {
+  const image = document.querySelector('[data-node-name="imagePath"]')
+  if (!image || !isSafeResourceUrl(value)) {
+    console.warn('HappyBirthday: ignored unsafe image URL')
+    return
   }
+  image.setAttribute('src', value)
+}
 
-  const tl = new TimelineMax()
+function setFonts(fonts) {
+  if (!Array.isArray(fonts)) return
 
-  tl
-    .to(".container", 0.1, {
-      visibility: "visible"
-    })
-    .from(".one", 0.7, {
-      opacity: 0,
-      y: 10
-    })
-    .from(".two", 0.4, {
-      opacity: 0,
-      y: 10
-    })
-    .to(
-      ".one",
-      0.7,
-      {
-        opacity: 0,
-        y: 10
-      },
-      "+=2.5"
-    )
-    .to(
-      ".two",
-      0.7,
-      {
-        opacity: 0,
-        y: 10
-      },
-      "-=1"
-    )
-    .from(".three", 0.7, {
-      opacity: 0,
-      y: 10
-      // scale: 0.7
-    })
-    .to(
-      ".three",
-      0.7,
-      {
-        opacity: 0,
-        y: 10
-      },
-      "+=2"
-    )
-    .from(".four", 0.7, {
-      scale: 0.2,
-      opacity: 0
-    })
-    .from(".fake-btn", 0.3, {
-      scale: 0.2,
-      opacity: 0
-    })
-    .staggerTo(
-      ".hbd-chatbox span",
-      0.5,
-      {
-        visibility: "visible"
-      },
-      0.05
-    )
-    .to(".fake-btn", 0.1, {
-      backgroundColor: "#8FE3B6"
-    })
-    .to(
-      ".four",
-      0.5,
-      {
-        scale: 0.2,
-        opacity: 0,
-        y: -150
-      },
-      "+=0.7"
-    )
-    .from(".idea-1", 0.7, ideaTextTrans)
-    .to(".idea-1", 0.7, ideaTextTransLeave, "+=1.5")
-    .from(".idea-2", 0.7, ideaTextTrans)
-    .to(".idea-2", 0.7, ideaTextTransLeave, "+=1.5")
-    .from(".idea-3", 0.7, ideaTextTrans)
-    .to(".idea-3 strong", 0.5, {
-      scale: 1.2,
-      x: 10,
-      backgroundColor: "rgb(21, 161, 237)",
-      color: "#fff"
-    })
-    .to(".idea-3", 0.7, ideaTextTransLeave, "+=1.5")
-    .from(".idea-4", 0.7, ideaTextTrans)
-    .to(".idea-4", 0.7, ideaTextTransLeave, "+=1.5")
-    .from(
-      ".idea-5",
-      0.7,
-      {
-        rotationX: 15,
-        rotationZ: -10,
-        skewY: "-5deg",
-        y: 50,
-        z: 10,
-        opacity: 0
-      },
-      "+=0.5"
-    )
-    .to(
-      ".idea-5 .smiley",
-      0.7,
-      {
-        rotation: 90,
-        x: 8
-      },
-      "+=0.4"
-    )
-    .to(
-      ".idea-5",
-      0.7,
-      {
-        scale: 0.2,
-        opacity: 0
-      },
-      "+=2"
-    )
-    .staggerFrom(
-      ".idea-6 span",
-      0.8,
-      {
-        scale: 3,
-        opacity: 0,
-        rotation: 15,
-        ease: Expo.easeOut
-      },
-      0.2
-    )
-    .staggerTo(
-      ".idea-6 span",
-      0.8,
-      {
-        scale: 3,
-        opacity: 0,
-        rotation: -15,
-        ease: Expo.easeOut
-      },
-      0.2,
-      "+=1"
-    )
-    .staggerFromTo(
-      ".baloons img",
-      2.5,
-      {
-        opacity: 0.9,
-        y: 1400
-      },
-      {
-        opacity: 1,
-        y: -1000
-      },
-      0.2
-    )
-    .from(
-      ".lydia-dp",
-      0.5,
-      {
-        scale: 3.5,
-        opacity: 0,
-        x: 25,
-        y: -25,
-        rotationZ: -45
-      },
-      "-=2"
-    )
-    .from(".hat", 0.5, {
-      x: -100,
-      y: 350,
-      rotation: -180,
-      opacity: 0
-    })
-    .staggerFrom(
-      ".wish-hbd span",
-      0.7,
-      {
-        opacity: 0,
-        y: -50,
-        // scale: 0.3,
-        rotation: 150,
-        skewX: "30deg",
-        ease: Elastic.easeOut.config(1, 0.5)
-      },
-      0.1
-    )
-    .staggerFromTo(
-      ".wish-hbd span",
-      0.7,
-      {
-        scale: 1.4,
-        rotationY: 150
-      },
-      {
-        scale: 1,
-        rotationY: 0,
-        color: "#ff69b4",
-        ease: Expo.easeOut
-      },
-      0.1,
-      "party"
-    )
-    .from(
-      ".wish h5",
-      0.5,
-      {
-        opacity: 0,
-        y: 10,
-        skewX: "-15deg"
-      },
-      "party"
-    )
-    .staggerTo(
-      ".eight svg",
-      1.5,
-      {
-        visibility: "visible",
-        opacity: 0,
-        scale: 80,
-        repeat: 3,
-        repeatDelay: 1.4
-      },
-      0.3
-    )
-    .to(".six", 0.5, {
-      opacity: 0,
-      y: 30,
-      zIndex: "-1"
-    })
-    .staggerFrom(".nine p", 1, ideaTextTrans, 1.2)
-    .to(
-      ".last-smile",
-      0.5,
-      {
-        rotation: 90
-      },
-      "+=1"
-    )
+  fonts.forEach((font) => {
+    if (!font || typeof font.name !== 'string' || !isSafeResourceUrl(font.path)) {
+      console.warn('HappyBirthday: ignored unsafe font configuration')
+      return
+    }
 
-  // tl.seek("currentStep");
-  // tl.timeScale(2);
-
-  // Restart Animation on click
-  const replyBtn = document.getElementById("replay")
-  replyBtn.addEventListener("click", () => {
-    tl.restart()
-
+    const link = document.createElement('link')
+    link.rel = 'stylesheet'
+    link.href = font.path
+    document.head.appendChild(link)
+    document.body.style.fontFamily = font.name
   })
 }
 
-// Run fetch and animation in sequence
-fetchData()
-
-const playPauseButton = document.getElementById('playPauseButton')
-
-document.getElementById('startButton').addEventListener('click', () => {
-  if (audio) {
-    togglePlay(true)
+function setAudio(value) {
+  if (!isSafeResourceUrl(value)) {
+    console.warn('HappyBirthday: ignored unsafe audio URL')
+    return
   }
-})
 
-playPauseButton.addEventListener('click', () => {
-  if (audio) {
-    togglePlay(!isPlaying)
-  }
-})
-
-function togglePlay(play) {
-  if (!audio) return
-  
-  isPlaying = play
-  play ? audio.play() : audio.pause()
-  playPauseButton.classList.toggle('playing', play)
+  audio = new Audio(value)
+  audio.preload = 'auto'
+  audio.addEventListener('error', () => {
+    isPlaying = false
+    document.getElementById('playPauseButton')?.classList.remove('playing')
+    setStatus('音乐无法加载，但生日动画仍可播放。')
+  })
 }
+
+function applyConfiguration(config) {
+  const theme = SAFE_THEME_NAMES.has(config.theme) ? config.theme : 'classic'
+  document.documentElement.dataset.theme = theme
+  document.body.dataset.theme = theme
+
+  Object.entries(config).forEach(([key, value]) => {
+    if (textFields.has(key) && value !== '') setText(key, value)
+  })
+
+  if (config.imagePath) setImage(config.imagePath)
+  if (config.music) setAudio(config.music)
+  setFonts(config.fonts)
+}
+
+function splitIntoSpans(element) {
+  if (!element) return
+  const fragment = document.createDocumentFragment()
+
+  for (const character of element.textContent || '') {
+    const span = document.createElement('span')
+    span.textContent = character
+    fragment.appendChild(span)
+  }
+
+  element.replaceChildren(fragment)
+}
+
+function prepareAnimationText() {
+  if (charactersPrepared) return
+  splitIntoSpans(document.querySelector('.hbd-chatbox'))
+  splitIntoSpans(document.querySelector('.wish-hbd'))
+  charactersPrepared = true
+}
+
+function animationTimeline() {
+  prepareAnimationText()
+  if (animation) {
+    animation.restart()
+    return
+  }
+
+  const ideaTextTrans = { opacity: 0, y: -20, rotationX: 5, skewX: '15deg' }
+  const ideaTextTransLeave = { opacity: 0, y: 20, rotationY: 5, skewX: '-15deg' }
+  const themeStyles = getComputedStyle(document.documentElement)
+  const accentColor = themeStyles.getPropertyValue('--accent-color').trim()
+  const ideaHighlight = themeStyles.getPropertyValue('--idea-highlight').trim()
+  const wishColor = themeStyles.getPropertyValue('--wish-color').trim()
+
+  animation = gsap.timeline()
+    .to('.container', { duration: 0.1, autoAlpha: 1 })
+    .from('.one', { duration: 0.7, opacity: 0, y: 10 })
+    .from('.two', { duration: 0.4, opacity: 0, y: 10 })
+    .to('.one', { duration: 0.7, opacity: 0, y: 10 }, '+=2.5')
+    .to('.two', { duration: 0.7, opacity: 0, y: 10 }, '-=1')
+    .from('.three', { duration: 0.7, opacity: 0, y: 10 })
+    .to('.three', { duration: 0.7, opacity: 0, y: 10 }, '+=2')
+    .from('.four', { duration: 0.7, scale: 0.2, opacity: 0 })
+    .from('.fake-btn', { duration: 0.3, scale: 0.2, opacity: 0 })
+    .to('.hbd-chatbox span', { duration: 0.5, visibility: 'visible', stagger: 0.05 })
+    .to('.fake-btn', { duration: 0.1, backgroundColor: accentColor })
+    .to('.four', { duration: 0.5, scale: 0.2, opacity: 0, y: -150 }, '+=0.7')
+    .from('.idea-1', { duration: 0.7, ...ideaTextTrans })
+    .to('.idea-1', { duration: 0.7, ...ideaTextTransLeave }, '+=1.5')
+    .from('.idea-2', { duration: 0.7, ...ideaTextTrans })
+    .to('.idea-2', { duration: 0.7, ...ideaTextTransLeave }, '+=1.5')
+    .from('.idea-3', { duration: 0.7, ...ideaTextTrans })
+    .to('.idea-3 strong', { duration: 0.5, scale: 1.2, x: 10, backgroundColor: ideaHighlight, color: '#fff' })
+    .to('.idea-3', { duration: 0.7, ...ideaTextTransLeave }, '+=1.5')
+    .from('.idea-4', { duration: 0.7, ...ideaTextTrans })
+    .to('.idea-4', { duration: 0.7, ...ideaTextTransLeave }, '+=1.5')
+    .from('.idea-5', { duration: 0.7, rotationX: 15, rotationZ: -10, skewY: '-5deg', y: 50, z: 10, opacity: 0 }, '+=0.5')
+    .to('.idea-5 .smiley', { duration: 0.7, rotation: 90, x: 8 }, '+=0.4')
+    .to('.idea-5', { duration: 0.7, scale: 0.2, opacity: 0 }, '+=2')
+    .from('.idea-6 span', { duration: 0.8, scale: 3, opacity: 0, rotation: 15, ease: 'expo.out', stagger: 0.2 })
+    .to('.idea-6 span', { duration: 0.8, scale: 3, opacity: 0, rotation: -15, ease: 'expo.out', stagger: 0.2 }, '+=1')
+    .fromTo('.baloons img', { opacity: 0.9, y: 1400 }, { duration: 2.5, opacity: 1, y: -1000, stagger: 0.2 })
+    .from('.lydia-dp', { duration: 0.5, scale: 3.5, opacity: 0, x: 25, y: -25, rotationZ: -45 }, '-=2')
+    .from('.hat', { duration: 0.5, x: -100, y: 350, rotation: -180, opacity: 0 })
+    .from('.wish-hbd span', { duration: 0.7, opacity: 0, y: -50, rotation: 150, skewX: '30deg', ease: 'elastic.out(1, 0.5)', stagger: 0.1 })
+    .fromTo('.wish-hbd span', { scale: 1.4, rotationY: 150 }, { duration: 0.7, scale: 1, rotationY: 0, color: wishColor, ease: 'expo.out', stagger: 0.1 }, 'party')
+    .from('.wish h5', { duration: 0.5, opacity: 0, y: 10, skewX: '-15deg' }, 'party')
+    .to('.eight svg', { duration: 1.5, visibility: 'visible', opacity: 0, scale: 80, repeat: 3, repeatDelay: 1.4, stagger: 0.3 })
+    .to('.six', { duration: 0.5, opacity: 0, y: 30, zIndex: -1 })
+    .from('.nine p', { duration: 1, ...ideaTextTrans, stagger: 1.2 })
+    .to('.last-smile', { duration: 0.5, rotation: 90 }, '+=1')
+}
+
+async function togglePlay(play) {
+  if (!audio) return
+
+  try {
+    if (play) await audio.play()
+    else audio.pause()
+    isPlaying = play
+    document.getElementById('playPauseButton')?.classList.toggle('playing', play)
+  } catch {
+    isPlaying = false
+    document.getElementById('playPauseButton')?.classList.remove('playing')
+    setStatus('浏览器阻止了音乐播放，请再次点击播放按钮。')
+  }
+}
+
+function bindControls() {
+  const startButton = document.getElementById('startButton')
+  const playPauseButton = document.getElementById('playPauseButton')
+  const replayButton = document.getElementById('replay')
+
+  startButton?.addEventListener('click', () => {
+    document.querySelector('.startSign').style.display = 'none'
+    animationTimeline()
+    void togglePlay(true)
+  })
+
+  playPauseButton?.addEventListener('click', () => void togglePlay(!isPlaying))
+  replayButton?.addEventListener('click', animationTimeline)
+}
+
+async function initialize() {
+  try {
+    const response = await fetch('./customize.json', { cache: 'no-store' })
+    if (!response.ok) throw new Error(`HTTP ${response.status}`)
+
+    const config = await response.json()
+    if (!config || typeof config !== 'object' || Array.isArray(config)) {
+      throw new Error('customize.json must contain an object')
+    }
+
+    applyConfiguration(config)
+    bindControls()
+    startFireworks()
+  } catch (error) {
+    console.error('HappyBirthday initialization failed:', error)
+    setStatus('无法加载生日配置，请检查 customize.json。')
+  }
+}
+
+void initialize()
