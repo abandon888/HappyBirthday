@@ -1,31 +1,29 @@
 {
   "theme": "classic",
   "greeting": "你好啊",
-  "name": "XX",
-  "greetingText": "很庆幸能在最美丽的年华遇见最美丽的你",
-  "wishText": "朱颜长似，头上花枝，岁岁年年。愿君青丝不老，岁岁皆欢。",
-  "imagePath": "img/lydia2.png",
-  "text1": "今天是你的生日啊!!! :D",
-  "textInChatBox": "非常非常非常诚挚的祝你生日快乐！！！很多很多的快乐……",
-  "sendButtonLabel": "发送",
-  "text2": "我想给你一个惊喜",
-  "text3": "我认真的想了很久",
-  "text4": "我认识到，我想要做一些",
-  "text4Adjective": "特殊的事情",
-  "text5Entry": "因为，",
-  "text5Content": "你对于我来说，很特殊",
+  "name": "親愛的嶸羽同學",
+  "greetingText": "願你福如東海...",
+  "imagePath": "https://drive.google.com/uc?export=download&id=1KV...",
+  "wishText": "和暖的春風送上真摯的祝福...",
+  "text1": "今天是你的生日!!! :D",
+  "textInChatBox": "非常誠摯地祝你生日快樂！",
+  "sendButtonLabel": "發送",
+  "text2": "我想給你一個驚喜",
+  "text3": "以至於剛剛都沒在上課",
+  "text4": "但老師剛原諒我啦",
+  "text4Adjective": "感動吧",
+  "text5Entry": "然後！",
+  "text5Content": "期中期末都要歐趴",
   "smiley": ":)",
-  "bigTextPart1": "所",
-  "bigTextPart2": "以",
-  "wishHeading": "生日快乐啊!",
-  "outroText": "我希望你喜欢这个小小的惊喜!",
-  "replayText": "如果你喜欢的话，可以再看一次哦!或者……",
-  "outroSmiley": ":)",
+  "bigTextPart1": "生",
+  "bigTextPart2": "日快樂！",
+  "wishHeading": "生日快樂啊！！！",
+  "outroText": "好了沒了",
+  "replayText": "可以點這裡再看一次",
+  "outroSmiley": ":D",
   "music": "./music/bgMusic.mp3",
-  "fonts": [
-    {
-      "name": "Ma Shan Zheng",
-      "path": "https://fonts.googleapis.com/css?family=Ma+Shan+Zheng&display=swap"
-    }
-  ]
+  "fonts": {
+    "name": "你的同學的禮物",
+    "path": "https://fonts.googleapis.com/css?family=Ma+Shan+Zheng"
+  }
 }
